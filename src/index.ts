@@ -45,7 +45,7 @@ const classes = {
     resultItem: "result-item",
 };
 
-function showResult(ctx: Required<Context>) {
+function showResult(ctx: Context) {
     const {footer, result: text, lcs} = ctx;
 
     let child;
@@ -65,7 +65,7 @@ function showResult(ctx: Required<Context>) {
     footer.appendChild(result);
 }
 
-function backTrack(ctx: Required<Context>) {
+function backTrack(ctx: Context) {
     const {colElement, rowElement, itemElement, lcs, items} = ctx;
 
     itemElement.ontransitionend = null;
@@ -109,7 +109,7 @@ function backTrack(ctx: Required<Context>) {
     next.dataset.selected = "true";
 }
 
-function end(ctx: Required<Context> & {b: HTMLSpanElement}) {
+function end(ctx: Context & {b: HTMLSpanElement}) {
     const {rowElement, colElement, itemElement: a, b, lcs} = ctx;
     const col = parseInt(a.dataset.col);
     const row = parseInt(a.dataset.row);
@@ -145,7 +145,7 @@ function end(ctx: Required<Context> & {b: HTMLSpanElement}) {
     b.ontransitionend = () => backTrack(ctx);
 }
 
-function nextItemElement(ctx: Required<Context>) {
+function nextItemElement(ctx: Context) {
     const {itemElement, items, lcs} = ctx;
 
     itemElement.ontransitionend = null;
@@ -160,7 +160,7 @@ function nextItemElement(ctx: Required<Context>) {
     next.dataset.selected = "true";
 }
 
-function nextColElement(ctx: Required<Context>) {
+function nextColElement(ctx: Context) {
     const {colElement, rowElement, lcs, items} = ctx;
 
     colElement.ontransitionend = null;
@@ -175,7 +175,7 @@ function nextColElement(ctx: Required<Context>) {
     next.dataset.selected = "true";
 }
 
-function nextRowElement(ctx: Required<Context>) {
+function nextRowElement(ctx: Context) {
     const {rowElement, colElement} = ctx;
     rowElement.ontransitionend = null;
     colElement.ontransitionend = () => nextColElement(ctx);
@@ -338,6 +338,7 @@ function makeGrid(grid: HTMLDivElement, ctx: Context) {
         child.remove();
     }
 
+    root.style.setProperty("--length", `${ctx.lcs.weights[0].length}`);
     grid.append(
         makeLabel(ctx, "row"),
         makeLabel(ctx, "col"),
