@@ -344,27 +344,27 @@ function makeGrid(grid: HTMLDivElement, ctx: Context) {
     grid.appendChild(makeFooter(ctx));
 }
 
-function run(data: ReturnType<typeof lcs>) {
-    root.style.setProperty("--length", `${data.weights[0].length}`);
+function run(ctx: Context) {
     root.style.setProperty("--delay", "500ms");
 
-    const ctx = {lcs: data, result: ""} as Context;
-    makeGrid(grid, ctx);
-
-    // Gotta give the engine time to paint, so:
     requestAnimationFrame(() => {
         ctx.rowElement.ontransitionend = () => nextRowElement(ctx);
         ctx.rowElement.dataset.selected = "true";
     });
 }
 
-document.querySelector<HTMLFormElement>(".request-form")!.onsubmit = async (
+document.querySelector<HTMLFormElement>(".request-form")!.onsubmit = (
     e: SubmitEvent
 ) => {
     e.preventDefault();
 
     const target = e.currentTarget as HTMLFormElement;
     const children = Array.from(target.children) as HTMLInputElement[];
+    const ctx = {
+        lcs: lcs(children[0].value, children[1].value),
+        result: "",
+    } as Context;
 
-    run(lcs(children[0].value, children[1].value));
+    makeGrid(grid, ctx);
+    run(ctx);
 };
