@@ -338,10 +338,12 @@ function makeGrid(grid: HTMLDivElement, ctx: Context) {
         child.remove();
     }
 
-    grid.appendChild(makeLabel(ctx, "row"));
-    grid.appendChild(makeLabel(ctx, "col"));
-    grid.appendChild(makeItems(ctx));
-    grid.appendChild(makeFooter(ctx));
+    grid.append(
+        makeLabel(ctx, "row"),
+        makeLabel(ctx, "col"),
+        makeItems(ctx),
+        makeFooter(ctx)
+    );
 }
 
 function run(ctx: Context) {
