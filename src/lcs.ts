@@ -7,7 +7,7 @@ export default function lcs(a: string, b: string) {
         .map(() => new Array<number>(n).fill(0));
     const paths = new Array(m - 1)
         .fill(0)
-        .map(() => new Array<string>().fill(""));
+        .map(() => new Array<string>(n - 1).fill(""));
 
     for (let i = 1; i < m; i++) {
         for (let j = 1; j < n; j++) {
