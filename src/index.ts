@@ -58,7 +58,7 @@ function showResult(ctx: Context) {
     result.classList.add(classes.result);
     result.appendChild(
         document.createTextNode(
-            `LCS(${lcs.query[0]}, ${lcs.query[1]}) = ${text ? text : "no match"}`
+            `LCS(${lcs.query[0]}, ${lcs.query[1]}) = ${text ? text.split("").reverse().join("") : "no match"}`
         )
     );
 
@@ -285,7 +285,7 @@ function makeItems(ctx: Context) {
             box.dataset.col = `${j}`;
 
             if (i && j) {
-                box.textContent = `${ctx.lcs.paths[i - 1][j - 1]}0`;
+                box.textContent = `\u21910`;
             } else {
                 box.textContent = "0";
             }
